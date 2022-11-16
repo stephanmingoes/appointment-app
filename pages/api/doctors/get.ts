@@ -1,18 +1,21 @@
 import dbConnect from "../../../lib/mongodb";
-import { ResponseData, User as UserType } from "../../../types";
+import { ResponseData, UserType } from "../../../types";
 import User from "../../../models/User";
+import auth from "../../../middleware/auth";
 import type { NextApiRequest, NextApiResponse } from "next";
 
-export default async function handler(
+async function handler(
   req: NextApiRequest,
   res: NextApiResponse<ResponseData>
 ) {
   try {
     await dbConnect();
-    const { id } = req.query;
-    if (!id) return res.status(400).json({ message: "Missing ID" });
-    const user = await User.findById(id).select("-password");
-    return res.status(200).json({ message: "User found", data: user });
+    let data = await User.find({
+      type: UserType.DOCTOR,
+    }).select("-password");
+    return res
+      .status(200)
+      .json({ message: "doctors fetched successfully", data: data });
   } catch (error) {
     res
       .status(500)
@@ -20,3 +23,4 @@ export default async function handler(
     console.log("Error: ", error);
   }
 }
+export default auth(handler);

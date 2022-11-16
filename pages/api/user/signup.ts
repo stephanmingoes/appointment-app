@@ -13,16 +13,8 @@ export default async function handler(
   try {
     await dbConnect();
 
-    let {
-      name,
-      email,
-      type,
-      password,
-      ip,
-      birthday,
-      medicalIllnesses,
-      about,
-    }: UserType = req.body;
+    let { name, email, type, password, ip, birthday, about }: UserType =
+      req.body;
     email = email.toLowerCase().trim();
     if (!validator.isEmail(email))
       return res.status(400).json({ message: "Please Enter a valid email." });
@@ -41,7 +33,6 @@ export default async function handler(
       password: hashedPassword,
       ip,
       birthday,
-      medicalIllnesses,
       about,
     });
 

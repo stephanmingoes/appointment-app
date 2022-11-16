@@ -2,7 +2,6 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import dbConnect from "../../../lib/mongodb";
 import { User as UserType, ResponseData } from "../../../types";
 import User from "../../../models/User";
-import validator from "validator";
 import bcrypt from "bcrypt";
 import jsonwebtoken from "jsonwebtoken";
 
@@ -45,7 +44,10 @@ export default async function handler(
     res.status(200).json({
       message: "User logged in successfully.",
       data: {
-        username: existingUser.username,
+        name: existingUser.name,
+        about: existingUser.about,
+        email: existingUser.email,
+        birthday: existingUser.birthday,
         id: existingUser._id,
         token: token,
       },

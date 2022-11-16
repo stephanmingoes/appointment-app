@@ -2,8 +2,9 @@ import dbConnect from "../../../lib/mongodb";
 import { Appointment as AppointmentType, ResponseData } from "../../../types";
 import Appointment from "../../../models/Appointment";
 import type { NextApiRequest, NextApiResponse } from "next";
+import auth from "../../../middleware/auth";
 
-export default async function handler(
+async function handler(
   req: NextApiRequest,
   res: NextApiResponse<ResponseData>
 ) {
@@ -45,3 +46,4 @@ export default async function handler(
     console.log("Error: ", error);
   }
 }
+export default auth(handler);

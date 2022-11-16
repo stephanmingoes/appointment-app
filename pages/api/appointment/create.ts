@@ -2,17 +2,20 @@ import dbConnect from "../../../lib/mongodb";
 import { Appointment as AppointmentType, ResponseData } from "../../../types";
 import Appointment from "../../../models/Appointment";
 import type { NextApiRequest, NextApiResponse } from "next";
+import auth from "../../../middleware/auth";
 
-export default async function handler(
+async function handler(
   req: NextApiRequest,
   res: NextApiResponse<ResponseData>
 ) {
   try {
     await dbConnect();
-    const { doctor, patient, to, from, status }: AppointmentType = req.body;
+    const { doctor, to, description, from, status }: AppointmentType = req.body;
+    const patient = req.body.id;
     const data = await Appointment.create({
       doctor,
       patient,
+      description,
       to,
       from,
       status,
@@ -27,3 +30,4 @@ export default async function handler(
     console.log("Error: ", error);
   }
 }
+export default auth(handler);

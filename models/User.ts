@@ -8,7 +8,6 @@ const UserSchema = new mongoose.Schema({
   type: { type: String, enum: UserType, required: true },
   password: { type: String, required: true },
   birthday: { type: Date, required: true },
-  medicalIllnesses: { type: [String], required: true },
   about: { type: String, require: true },
 });
 const User = mongoose.models.User || mongoose.model("User", UserSchema);

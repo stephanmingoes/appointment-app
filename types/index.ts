@@ -15,13 +15,13 @@ export type User = {
   password: string;
   ip: string;
   birthday: Date;
-  medicalIllnesses: string[];
   about: string;
 };
 
 export type Appointment = {
   doctor: string;
   patient: string;
+  description: string;
   to: Date;
   from: Date;
   status: Status;

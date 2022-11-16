@@ -7,6 +7,7 @@ const AppointmentScehma = new mongoose.Schema({
     ref: "User",
     required: true,
   },
+  description: { type: String, required: true },
   to: { type: Date, required: true },
   from: { type: Date, required: true },
   status: { type: String, enum: Status },
