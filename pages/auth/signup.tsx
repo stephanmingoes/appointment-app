@@ -82,9 +82,9 @@ export default function Signup() {
       });
       setAsDoctor(false);
       setBirthDate(dayjs());
-    } catch (err) {
+    } catch (err: any) {
       console.log(err);
-      enqueueSnackbar("Something went wrong sigin you up", {
+      enqueueSnackbar(err?.response?.data?.message ?? "Something Went Wrong", {
         variant: "error",
       });
     }

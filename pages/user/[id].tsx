@@ -107,7 +107,7 @@ export default function User() {
               <br />
               <DateTimePicker
                 renderInput={(props) => <TextField sx={textBoxSx} {...props} />}
-                label="From"
+                label="To"
                 value={to}
                 onChange={(newValue) => {
                   setTo(newValue);
