@@ -54,6 +54,7 @@ export default function Signup() {
         birthday: birthdate?.toDate() as Date,
         type: asDoctor ? UserType.DOCTOR : UserType.PATIENT,
       };
+      if (!(ipAddress.length > 0)) return enqueueSnackbar("Invalid Ip Address");
       if (!validator.isEmail(user.email)) {
         enqueueSnackbar("Invalid Email");
         return;

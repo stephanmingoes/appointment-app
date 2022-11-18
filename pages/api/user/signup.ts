@@ -16,6 +16,7 @@ export default async function handler(
     let { name, email, type, password, ip, birthday, about }: UserType =
       req.body;
     email = email.toLowerCase().trim();
+
     if (!validator.isEmail(email))
       return res.status(400).json({ message: "Please Enter a valid email." });
 
@@ -25,7 +26,15 @@ export default async function handler(
         message: "Email already exist.",
       });
     const hashedPassword = await bcrypt.hash(password, 10);
-
+    console.log({
+      name,
+      email,
+      type,
+      password: hashedPassword,
+      ip,
+      birthday,
+      about,
+    });
     await User.create({
       name,
       email,
@@ -40,9 +49,9 @@ export default async function handler(
       message: "User created sucessfully, please proceed to login.",
     });
   } catch (error) {
+    console.log(error);
     res
       .status(500)
       .json({ message: "Something went wrong trying to sign you up" });
-    console.log(error);
   }
 }
